@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  fra-uas-semester-organizer-db:
+    image: postgres
+    hostname: postgres
+    container_name: fra-uas-semester-organizer-db
+    ports:
+      - '5434:5432'
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: SemesterOrganizer
