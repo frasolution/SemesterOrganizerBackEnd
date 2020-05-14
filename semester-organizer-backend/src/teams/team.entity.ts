@@ -6,7 +6,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { User } from '../user/user.entity';
+import { User } from '../users/user.entity';
 
 @Entity()
 export class Team extends BaseEntity {
