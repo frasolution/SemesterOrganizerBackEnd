@@ -42,7 +42,7 @@ export class UsersRepository extends Repository<User> {
   async signIn(signInCredentialsDto: SignInCredentialsDto): Promise<string> {
     const { username, password } = signInCredentialsDto;
     const user = await this.findOne({ username });
-    const isValidPassword = await user.validatePassword(password);
+    const isValidPassword = user ? await user.validatePassword(password) : null;
 
     if (user && isValidPassword) {
       return user.username;
