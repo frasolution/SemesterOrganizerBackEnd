@@ -24,7 +24,7 @@ export class UsersRepository extends Repository<User> {
     user.password = await this.hashPassword(password, salt);
     user.salt = salt;
 
-    team.name = `${user.firstname}s Team`;
+    team.name = 'Private Team';
     team.users = [user];
     team.courses = [];
 
