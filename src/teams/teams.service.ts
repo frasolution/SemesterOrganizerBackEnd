@@ -5,19 +5,16 @@ import { Team } from './team.entity';
 
 @Injectable()
 export class TeamsService {
+  constructor(
+    @InjectRepository(TeamsRepository)
+    private teamsRepository: TeamsRepository,
+  ) {}
 
-    constructor(
-        @InjectRepository(TeamsRepository)
-        private teamsRepository:TeamsRepository,
-    ){}
+  findOne(id: number): Promise<Team> {
+    return this.teamsRepository.findOne(id);
+  }
 
-
-    findOne(id:number): Promise<Team>{
-        return this.teamsRepository.findOne(id);
-    }
-
-    async remove(id:number): Promise<void> {
-        await this.teamsRepository.delete(id);
-    }
-
+  async remove(id: number): Promise<void> {
+    await this.teamsRepository.delete(id);
+  }
 }

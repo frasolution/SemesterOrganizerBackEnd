@@ -22,6 +22,9 @@ export class Team extends BaseEntity {
   @JoinTable()
   members: User[];
 
-  @ManyToOne(type => Course, course => course.team )
-  course:Course[]
+  @ManyToOne(
+    type => Course,
+    course => course.team,
+  )
+  course: Course[];
 }
