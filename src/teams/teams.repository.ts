@@ -2,7 +2,10 @@ import { Repository, EntityRepository } from 'typeorm';
 import { Team } from './team.entity';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UsersRepository } from 'src/users/users.repository';
-import { InternalServerErrorException } from '@nestjs/common';
+import {
+  InternalServerErrorException,
+  ConflictException,
+} from '@nestjs/common';
 import { User } from '../users/user.entity';
 
 @EntityRepository(Team)
@@ -25,13 +28,19 @@ export class TeamsRepository extends Repository<Team> {
   ): Promise<void> {
     const { teamName, usernames } = createTeamDto;
     const team = this.create();
-    const users = await usersRepository
+    const foundUsers = await usersRepository
       .createQueryBuilder('user')
       .where('user.username IN (:...usernames)', { usernames: usernames })
       .getMany();
 
+    if (foundUsers.length !== usernames.length) {
+      throw new ConflictException(
+        'Could not find certain users for team creation',
+      );
+    }
+
     team.name = teamName;
-    team.users = users;
+    team.users = foundUsers;
     team.courses = [];
 
     try {
