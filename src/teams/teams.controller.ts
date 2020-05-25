@@ -6,14 +6,25 @@ import {
   Post,
   Body,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+
 import { TeamsService } from './teams.service';
 import { Team } from './team.entity';
 import { CreateTeamDto } from './dto/create-team.dto';
+import { GetUser } from '../auth/getUser.decorator';
+import { User } from '../users/user.entity';
 
 @Controller('teams')
+@UseGuards(AuthGuard())
 export class TeamsController {
   constructor(private readonly teamService: TeamsService) {}
+
+  @Get('/')
+  getTeams(@GetUser() user: User): Promise<Team[]> {
+    return this.teamService.getTeams(user);
+  }
 
   @Post('/')
   createTeam(

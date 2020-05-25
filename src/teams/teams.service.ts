@@ -4,6 +4,7 @@ import { TeamsRepository } from './teams.repository';
 import { Team } from './team.entity';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UsersRepository } from 'src/users/users.repository';
+import { User } from '../users/user.entity';
 
 @Injectable()
 export class TeamsService {
@@ -13,6 +14,10 @@ export class TeamsService {
     @InjectRepository(UsersRepository)
     private usersRepository: UsersRepository,
   ) {}
+
+  async getTeams(user: User): Promise<Team[]> {
+    return await this.teamsRepository.getTeams(user, this.usersRepository);
+  }
 
   async createTeam(createTeamDto: CreateTeamDto): Promise<void> {
     await this.teamsRepository.createTeam(createTeamDto, this.usersRepository);

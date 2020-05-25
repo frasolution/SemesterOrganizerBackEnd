@@ -25,7 +25,8 @@ export class UsersRepository extends Repository<User> {
     user.salt = salt;
 
     team.name = `${user.firstname}s Team`;
-    team.members = [user];
+    team.users = [user];
+    team.courses = [];
 
     try {
       await user.save();

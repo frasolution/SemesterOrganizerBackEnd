@@ -18,13 +18,16 @@ export class Team extends BaseEntity {
   @Column()
   name: string;
 
-  @ManyToMany(type => User)
+  @ManyToMany(
+    () => User,
+    (user: User) => user.teams,
+  )
   @JoinTable()
-  members: User[];
+  users: User[];
 
   @OneToMany(
     type => Course,
     course => course.team,
   )
-  course: Course[];
+  courses: Course[];
 }

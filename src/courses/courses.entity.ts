@@ -3,7 +3,6 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
   ManyToOne,
 } from 'typeorm';
 import { Team } from '../teams/team.entity';
@@ -14,14 +13,14 @@ export class Course extends BaseEntity {
   id: number;
 
   @Column()
-  teamname: string;
+  courseName: string;
 
   @Column()
   semester: string;
 
   @ManyToOne(
     type => Team,
-    team => team.course,
+    team => team.courses,
   )
   team: Team;
 }
