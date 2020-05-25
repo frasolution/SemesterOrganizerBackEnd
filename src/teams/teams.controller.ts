@@ -1,10 +1,26 @@
-import { Controller, Get, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Delete,
+  Post,
+  Body,
+  ValidationPipe,
+} from '@nestjs/common';
 import { TeamsService } from './teams.service';
 import { Team } from './team.entity';
+import { CreateTeamDto } from './dto/create-team.dto';
 
 @Controller('teams')
 export class TeamsController {
   constructor(private readonly teamService: TeamsService) {}
+
+  @Post('/')
+  createTeam(
+    @Body(ValidationPipe) createTeamDto: CreateTeamDto,
+  ): Promise<void> {
+    return this.teamService.createTeam(createTeamDto);
+  }
 
   /**
    * @param id team with this id will be returned via api

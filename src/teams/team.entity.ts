@@ -5,7 +5,7 @@ import {
   Column,
   ManyToMany,
   JoinTable,
-  ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { User } from '../users/user.entity';
 import { Course } from '../courses/courses.entity';
@@ -22,7 +22,7 @@ export class Team extends BaseEntity {
   @JoinTable()
   members: User[];
 
-  @ManyToOne(
+  @OneToMany(
     type => Course,
     course => course.team,
   )

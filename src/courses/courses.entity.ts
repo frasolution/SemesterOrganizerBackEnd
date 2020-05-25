@@ -1,10 +1,10 @@
 import {
   Entity,
-  Unique,
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
 import { Team } from '../teams/team.entity';
 
@@ -16,11 +16,10 @@ export class Course extends BaseEntity {
   @Column()
   teamname: string;
 
-  //DISPUTABLE
   @Column()
   semester: string;
 
-  @OneToMany(
+  @ManyToOne(
     type => Team,
     team => team.course,
   )
