@@ -23,11 +23,11 @@ export class TeamsRepository extends Repository<Team> {
     createTeamDto: CreateTeamDto,
     usersRepository: UsersRepository,
   ): Promise<void> {
-    const { teamName, teamMembers } = createTeamDto;
+    const { teamName, usernames } = createTeamDto;
     const team = this.create();
     const users = await usersRepository
       .createQueryBuilder('user')
-      .where('user.username IN (:usernames)', { usernames: teamMembers })
+      .where('user.username IN (:...usernames)', { usernames: usernames })
       .getMany();
 
     team.name = teamName;

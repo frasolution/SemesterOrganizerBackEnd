@@ -21,5 +21,5 @@ export class CreateTeamDto {
   @ArrayNotEmpty()
   @ArrayMinSize(1)
   @ArrayMaxSize(10)
-  teamMembers: string[];
+  usernames: string[];
 }
