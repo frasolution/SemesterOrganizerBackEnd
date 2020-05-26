@@ -4,8 +4,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+  JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { Team } from '../teams/team.entity';
+import { Note } from '../notes/notes.entity';
 
 @Entity()
 export class Course extends BaseEntity {
@@ -19,8 +22,15 @@ export class Course extends BaseEntity {
   semester: string;
 
   @ManyToOne(
-    type => Team,
+    () => Team,
     team => team.courses,
   )
+  @JoinTable()
   team: Team;
+
+  @OneToMany(
+    () => Note,
+    note => note.course,
+  )
+  note: Note[];
 }
