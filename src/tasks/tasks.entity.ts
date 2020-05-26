@@ -5,32 +5,30 @@ import {
   Column,
   ManyToOne,
   JoinTable,
-  OneToMany,
 } from 'typeorm';
 import { Team } from '../teams/team.entity';
-import { Note } from '../notes/notes.entity';
 
 @Entity()
-export class Course extends BaseEntity {
+export class Task extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  courseName: string;
+  title: string;
 
   @Column()
-  semester: string;
+  description: string;
+
+  @Column()
+  priority: number;
+
+  @Column()
+  dueDate: Date;
 
   @ManyToOne(
     () => Team,
-    team => team.courses,
+    team => team.task,
   )
   @JoinTable()
   team: Team;
-
-  @OneToMany(
-    () => Note,
-    note => note.course,
-  )
-  note: Note[];
 }
