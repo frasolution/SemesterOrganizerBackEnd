@@ -6,29 +6,20 @@ import {
   ManyToOne,
   JoinTable,
 } from 'typeorm';
-import { Team } from '../teams/team.entity';
+import { CheckList } from './checklist.entity';
 
 @Entity()
-export class Task extends BaseEntity {
+export class CheckListItem extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  title: string;
-
-  @Column()
   description: string;
 
-  @Column()
-  priority: number;
-
-  @Column()
-  dueDate: Date;
-
   @ManyToOne(
-    () => Team,
-    team => team.task,
+    () => CheckList,
+    (checkList: CheckList) => checkList.checkListItems,
   )
   @JoinTable()
-  team: Team;
+  checkList: CheckList;
 }

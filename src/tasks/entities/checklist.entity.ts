@@ -6,7 +6,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { CheckListItem } from '../checkListItems/checkListItems.entity';
+import { CheckListItem } from './checklist-item.entity';
 
 @Entity()
 export class CheckList extends BaseEntity {
@@ -18,7 +18,7 @@ export class CheckList extends BaseEntity {
 
   @OneToMany(
     () => CheckListItem,
-    checklistItem => checklistItem,
+    (checklistItem: CheckListItem) => checklistItem.checkList,
   )
   checkListItems: CheckListItem[];
 }
