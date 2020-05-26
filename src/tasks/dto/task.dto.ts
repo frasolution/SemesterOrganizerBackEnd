@@ -27,4 +27,8 @@ export class taskDto {
   @IsNotEmpty()
   @IsBoolean()
   isFinished: boolean;
+
+  //VALIDATOR MISSINF
+  @IsNotEmpty()
+  dueDate: Date;
 }

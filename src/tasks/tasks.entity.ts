@@ -22,6 +22,9 @@ export class Task extends BaseEntity {
   @Column()
   priority: number;
 
+  @Column()
+  dueDate: Date;
+
   @ManyToOne(
     () => Team,
     team => team.task,
