@@ -5,7 +5,7 @@ export class CreateCourseDto {
   @IsString()
   @MinLength(1)
   @MaxLength(32)
-  courseName: String;
+  courseName: string;
 
   @IsNotEmpty()
   @IsString()
