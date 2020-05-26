@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, MinLength, MaxLength } from 'class-validator';
 
-export class checklistItemDto {
+export class checkListItemDto {
   //size limit about max of skype msg
   @IsNotEmpty()
   @IsString()
