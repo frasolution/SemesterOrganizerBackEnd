@@ -4,7 +4,6 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  JoinTable,
 } from 'typeorm';
 import { Course } from '../courses/courses.entity';
 
@@ -23,6 +22,5 @@ export class Note extends BaseEntity {
     () => Course,
     (course: Course) => course.note,
   )
-  @JoinTable()
   course: Course;
 }

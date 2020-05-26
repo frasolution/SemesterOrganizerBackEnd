@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, MinLength, MaxLength } from 'class-validator';
-export class noteDto {
+export class NoteDto {
   @IsNotEmpty()
   @IsString()
   @MinLength(1)

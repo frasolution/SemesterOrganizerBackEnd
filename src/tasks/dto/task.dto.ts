@@ -7,7 +7,7 @@ import {
   MaxLength,
 } from 'class-validator';
 
-export class taskDto {
+export class TaskDto {
   @IsNotEmpty()
   @IsString()
   @MinLength(1)

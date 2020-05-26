@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { TeamsModule } from './teams/teams.module';
 import { TasksModule } from './tasks/tasks.module';
 import { NotesModule } from './notes/notes.module';
+import { CoursesModule } from './courses/couses.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { NotesModule } from './notes/notes.module';
     AuthModule,
     UsersModule,
     TeamsModule,
+    CoursesModule,
     TasksModule,
     NotesModule,
   ],

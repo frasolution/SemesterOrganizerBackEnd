@@ -4,7 +4,6 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  JoinTable,
   OneToMany,
 } from 'typeorm';
 import { Team } from '../teams/team.entity';
@@ -25,7 +24,6 @@ export class Course extends BaseEntity {
     () => Team,
     team => team.courses,
   )
-  @JoinTable()
   team: Team;
 
   @OneToMany(

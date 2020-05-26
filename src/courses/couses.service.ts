@@ -10,11 +10,11 @@ export class CoursesService {
     private courseRepository: CoursesRepository,
   ) {}
 
-  findOne(id: number): Promise<Course> {
-    return this.courseRepository.findOne(id);
+  async findOne(id: number): Promise<Course> {
+    return await this.courseRepository.findOne(id);
   }
 
-  // async remove(id:number): Promise<void>{
-  //     await this.courseRepository.delete(id);
-  // }
+  async getCoursesForTeam(teamId: number): Promise<Course[]> {
+    return await this.courseRepository.getCoursesForTeam(teamId);
+  }
 }
