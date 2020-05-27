@@ -25,7 +25,7 @@ export class TeamsRepository extends Repository<Team> {
   async createTeam(
     createTeamDto: CreateTeamDto,
     usersRepository: UsersRepository,
-  ): Promise<Team> {
+  ): Promise<void> {
     const { teamName, usernames } = createTeamDto;
     const team = this.create();
     const foundUsers = await usersRepository
@@ -44,7 +44,7 @@ export class TeamsRepository extends Repository<Team> {
     team.courses = [];
 
     try {
-      return await team.save();
+      await team.save();
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
