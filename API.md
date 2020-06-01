@@ -9,11 +9,11 @@
 | /api/auth/signup/                            | POST               | register                                     |
 | /api/auth/signin/                            | POST               | login                                        |
 | /api/users/:userId                           | GET, DELETE, PATCH | read/delete/update user                      |
-| /api/teams/                                  | POST               | create team                                  |
+| /api/teams/                                  | GET, POST          | read/create teams                            |
 | /api/teams/:teamId/                          | GET, DELETE, PATCH | read/delete/update team                      |
-| /api/courses/                                | POST               | create course                                |
+| /api/courses/                                | GET, POST          | read/create courses                          |
 | /api/courses/:courseId/                      | GET, DELETE, PATCH | read/delete/update course                    |
-| /api/courses/:teamId/                        | GET                | get all courses for team                     |
+| /api/courses/:teamId/                        | GET                | read all courses for team                    |
 | /api/courses/:teamId/:courseId/              | GET, DELETE, PATCH | read/delete/update course reference for team |
 | /api/courses/:teamId/:courseId/tasks/        | GET, POST          | read/create tasks                            |
 | /api/courses/:teamId/:courseId/tasks/:taskId | GET, DELETE, PATCH | read/delete/update task                      |
