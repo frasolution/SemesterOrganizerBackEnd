@@ -1,21 +1,16 @@
-# REST API
+# REST API Design
 
-- This is a potential API design
-- The term `Course` refers to the german `Modul`
-  - The reason for that choice is since we will have a Nest module for this business logic, we would have a class called `ModuleModule` which is not so elegant. The synonym `course` fits better here
 
-| API                                          | HTTP Verb          | Description                                  |
-| -------------------------------------------- | ------------------ | -------------------------------------------- |
-| /api/auth/signup/                            | POST               | register                                     |
-| /api/auth/signin/                            | POST               | login                                        |
-| /api/users/:userId                           | GET, DELETE, PATCH | read/delete/update user                      |
-| /api/teams/                                  | GET, POST          | read/create teams                            |
-| /api/teams/:teamId/                          | GET, DELETE, PATCH | read/delete/update team                      |
-| /api/courses/                                | GET, POST          | read/create courses                          |
-| /api/courses/:courseId/                      | GET, DELETE, PATCH | read/delete/update course                    |
-| /api/courses/:teamId/                        | GET                | read all courses for team                    |
-| /api/courses/:teamId/:courseId/              | GET, DELETE, PATCH | read/delete/update course reference for team |
-| /api/courses/:teamId/:courseId/tasks/        | GET, POST          | read/create tasks                            |
-| /api/courses/:teamId/:courseId/tasks/:taskId | GET, DELETE, PATCH | read/delete/update task                      |
-| /api/courses/:teamId/:courseId/notes/        | GET, POST          | read/create notes                            |
-| /api/courses/:teamId/:courseId/tasks/:noteId | GET, DELETE, PATCH | read/delete/update note                      |
+| API                                                 | HTTP Verb          | Description                                                       |
+| --------------------------------------------------- | ------------------ | ----------------------------------------------------------------- |
+| /api/auth/signup/                                   | POST               | register                                                          |
+| /api/auth/signin/                                   | POST               | login                                                             |
+| /api/users/:userId                                  | GET, DELETE, PATCH | get, delete and update specific users                             |
+| /api/teams/                                         | GET, POST          | get list of teams for user and create new team including the user |
+| /api/teams/:teamId/                                 | GET, DELETE, PATCH | get, delete and update specific teams                             |
+| /api/teams/:teamId/courses                          | GET, POST          | get list of courses for team and create course for team           |
+| /api/teams/:teamId/courses/:courseId                | GET, DELETE, PATCH | get, delete and update specific courses                           |
+| /api/teams/:teamId/courses/:courseId/tasks          | GET, POST          | get tasks for specific course and create new tasks                |
+| /api/teams/:teamId/courses/:courseId/tasks/:taskId  | GET, DELETE, PATCH | get, delete and update specific tasks                             |
+| /api/teams/:teamId/courses/:courseId/notes          | GET, POST          | get notes for specific course and create new notes                |
+| /api/teams/:teamId/courses/:courseId/notes/:notesId | GET, DELETE, PATCH | get, delete and update specific notes                             |
