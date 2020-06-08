@@ -25,6 +25,7 @@ export class TeamsRepository extends Repository<Team> {
   async createTeam(
     createTeamDto: CreateTeamDto,
     usersRepository: UsersRepository,
+    user: User,
   ): Promise<void> {
     const { teamName, usernames } = createTeamDto;
     const team = this.create();
@@ -37,6 +38,11 @@ export class TeamsRepository extends Repository<Team> {
       throw new ConflictException(
         'Could not find certain users for team creation',
       );
+    }
+
+    // add the user who created the team too, if he did not provided his username
+    if (!foundUsers.includes(user)) {
+      foundUsers.push(user);
     }
 
     team.name = teamName;

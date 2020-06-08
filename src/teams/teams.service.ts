@@ -19,10 +19,11 @@ export class TeamsService {
     return await this.teamsRepository.getTeams(user, this.usersRepository);
   }
 
-  async createTeam(createTeamDto: CreateTeamDto): Promise<void> {
+  async createTeam(createTeamDto: CreateTeamDto, user: User): Promise<void> {
     return await this.teamsRepository.createTeam(
       createTeamDto,
       this.usersRepository,
+      user,
     );
   }
 

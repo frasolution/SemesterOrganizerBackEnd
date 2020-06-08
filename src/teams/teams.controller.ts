@@ -29,8 +29,9 @@ export class TeamsController {
   @Post('/')
   createTeam(
     @Body(ValidationPipe) createTeamDto: CreateTeamDto,
+    @GetUser() user: User,
   ): Promise<void> {
-    return this.teamService.createTeam(createTeamDto);
+    return this.teamService.createTeam(createTeamDto, user);
   }
 
   /**
