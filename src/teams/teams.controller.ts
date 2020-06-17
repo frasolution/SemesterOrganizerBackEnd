@@ -15,15 +15,17 @@ import { Team } from './team.entity';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { GetUser } from '../auth/getUser.decorator';
 import { User } from '../users/user.entity';
+import { Course } from '../courses/courses.entity';
+import { CoursesService } from '../courses/courses.service';
 
 @Controller('teams')
 @UseGuards(AuthGuard())
 export class TeamsController {
-  constructor(private readonly teamService: TeamsService) {}
+  constructor(private readonly teamsService: TeamsService) {}
 
   @Get('/')
   getTeams(@GetUser() user: User): Promise<Team[]> {
-    return this.teamService.getTeams(user);
+    return this.teamsService.getTeams(user);
   }
 
   @Post('/')
@@ -31,26 +33,21 @@ export class TeamsController {
     @Body(ValidationPipe) createTeamDto: CreateTeamDto,
     @GetUser() user: User,
   ): Promise<void> {
-    return this.teamService.createTeam(createTeamDto, user);
+    return this.teamsService.createTeam(createTeamDto, user);
   }
 
-  /**
-   * @param id team with this id will be returned via api
-   *
-   * returns team id as Promise
-   */
-  @Get(':id')
-  findOne(@Param('id') id: number): Promise<Team> {
-    return this.teamService.findOne(id);
+  @Get(':teamId')
+  findOne(@Param('teamId') teamId: number): Promise<Team> {
+    return this.teamsService.findOne(teamId);
   }
 
-  /**
-   * @param id team with this id will be removed
-   *
-   * removes team from repository
-   */
-  @Delete(':id')
-  remove(@Param('id') id: number): Promise<void> {
-    return this.teamService.remove(id);
+  @Delete(':teamId')
+  remove(@Param('teamId') teamId: number): Promise<void> {
+    return this.teamsService.remove(teamId);
+  }
+
+  @Get(':teamId/courses')
+  getCoursesByTeam(@Param('teamId') teamId: number): Promise<Course[]> {
+    return this.teamsService.getCoursesByTeam(teamId);
   }
 }

@@ -15,10 +15,16 @@ export class Course extends BaseEntity {
   id: number;
 
   @Column()
+  courseNumber: number;
+
+  @Column()
   courseName: string;
 
   @Column()
-  semester: string;
+  courseSemester: number;
+
+  @Column()
+  courseCP: number;
 
   @ManyToOne(
     () => Team,

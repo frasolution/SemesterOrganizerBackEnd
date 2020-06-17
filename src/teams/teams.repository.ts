@@ -1,12 +1,14 @@
 import { Repository, EntityRepository } from 'typeorm';
 import { Team } from './team.entity';
 import { CreateTeamDto } from './dto/create-team.dto';
-import { UsersRepository } from 'src/users/users.repository';
+import { UsersRepository } from '../users/users.repository';
 import {
   InternalServerErrorException,
   ConflictException,
 } from '@nestjs/common';
+
 import { User } from '../users/user.entity';
+import { Course } from '../courses/courses.entity';
 
 @EntityRepository(Team)
 export class TeamsRepository extends Repository<Team> {
@@ -54,5 +56,14 @@ export class TeamsRepository extends Repository<Team> {
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
+  }
+
+  async getCoursesByTeam(teamId: number): Promise<Course[]> {
+    const teams = await this.find({
+      relations: ['courses'],
+      where: { id: teamId },
+    });
+
+    return teams[0].courses;
   }
 }

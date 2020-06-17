@@ -5,6 +5,7 @@ import { Team } from './team.entity';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UsersRepository } from 'src/users/users.repository';
 import { User } from '../users/user.entity';
+import { Course } from '../courses/courses.entity';
 
 @Injectable()
 export class TeamsService {
@@ -27,11 +28,15 @@ export class TeamsService {
     );
   }
 
-  async findOne(id: number): Promise<Team> {
-    return await this.teamsRepository.findOne(id);
+  async getCoursesByTeam(teamId: number): Promise<Course[]> {
+    return await this.teamsRepository.getCoursesByTeam(teamId);
   }
 
-  async remove(id: number): Promise<void> {
-    await this.teamsRepository.delete(id);
+  async findOne(teamId: number): Promise<Team> {
+    return await this.teamsRepository.findOne(teamId);
+  }
+
+  async remove(teamId: number): Promise<void> {
+    await this.teamsRepository.delete(teamId);
   }
 }
