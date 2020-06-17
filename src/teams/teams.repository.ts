@@ -9,6 +9,8 @@ import {
 
 import { User } from '../users/user.entity';
 import { Course } from '../courses/courses.entity';
+import { CreateCoursesDto } from '../courses/dto/create-courses.dto';
+import { allCourses } from '../courses/data/fra-uas-courses.data';
 
 @EntityRepository(Team)
 export class TeamsRepository extends Repository<Team> {
@@ -58,12 +60,53 @@ export class TeamsRepository extends Repository<Team> {
     }
   }
 
-  async getCoursesByTeam(teamId: number): Promise<Course[]> {
-    const teams = await this.find({
+  async getCourses(teamId: number): Promise<Course[]> {
+    const team = await this.getTeamWithCourseRelation(teamId);
+    return team.courses;
+  }
+
+  async createCourses(
+    teamId: number,
+    createCoursesDto: CreateCoursesDto,
+  ): Promise<void> {
+    const newCourses: Course[] = [];
+    const { courseNames } = createCoursesDto;
+    const team = await this.getTeamWithCourseRelation(teamId);
+
+    // check if course is already existing for team
+    team.courses.forEach(course => {
+      if (courseNames.includes(course.courseName)) {
+        throw new ConflictException(
+          'One of the provided courses is a duplicate!',
+        );
+      }
+    });
+
+    // create courses and add them to existing ones
+    courseNames.forEach(name => {
+      const foundCourse = allCourses.find(c => c.courseName === name);
+      const course = new Course();
+
+      course.courseNumber = foundCourse.courseNumber;
+      course.courseName = foundCourse.courseName;
+      course.courseSemester = foundCourse.courseSemester;
+      course.courseCP = foundCourse.courseCP;
+
+      newCourses.push(course);
+    });
+
+    try {
+      team.courses = team.courses.concat(newCourses);
+      team.save();
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  private async getTeamWithCourseRelation(teamId: number) {
+    return await this.findOne({
       relations: ['courses'],
       where: { id: teamId },
     });
-
-    return teams[0].courses;
   }
 }

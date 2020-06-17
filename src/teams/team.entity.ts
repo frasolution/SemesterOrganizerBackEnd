@@ -29,6 +29,7 @@ export class Team extends BaseEntity {
   @OneToMany(
     () => Course,
     course => course.team,
+    { cascade: true },
   )
   courses: Course[];
 

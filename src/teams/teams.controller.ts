@@ -16,7 +16,7 @@ import { CreateTeamDto } from './dto/create-team.dto';
 import { GetUser } from '../auth/getUser.decorator';
 import { User } from '../users/user.entity';
 import { Course } from '../courses/courses.entity';
-import { CoursesService } from '../courses/courses.service';
+import { CreateCoursesDto } from '../courses/dto/create-courses.dto';
 
 @Controller('teams')
 @UseGuards(AuthGuard())
@@ -47,7 +47,15 @@ export class TeamsController {
   }
 
   @Get(':teamId/courses')
-  getCoursesByTeam(@Param('teamId') teamId: number): Promise<Course[]> {
-    return this.teamsService.getCoursesByTeam(teamId);
+  getCourses(@Param('teamId') teamId: number): Promise<Course[]> {
+    return this.teamsService.getCourses(teamId);
+  }
+
+  @Post(':teamId/courses')
+  createCourses(
+    @Param('teamId') teamId: number,
+    @Body(ValidationPipe) createCoursesDto: CreateCoursesDto,
+  ): Promise<void> {
+    return this.teamsService.createCourses(teamId, createCoursesDto);
   }
 }
