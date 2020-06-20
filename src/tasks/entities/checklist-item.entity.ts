@@ -19,7 +19,7 @@ export class CheckListItem extends BaseEntity {
   @ManyToOne(
     () => CheckList,
     (checkList: CheckList) => checkList.checkListItems,
+    { onDelete: 'CASCADE' },
   )
-  @JoinTable()
   checkList: CheckList;
 }

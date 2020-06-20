@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 
 import { CheckListItem } from './checklist-item.entity';
+import { Task } from './tasks.entity';
 
 @Entity()
 export class CheckList extends BaseEntity {
@@ -21,4 +23,10 @@ export class CheckList extends BaseEntity {
     (checklistItem: CheckListItem) => checklistItem.checkList,
   )
   checkListItems: CheckListItem[];
+
+  @OneToOne(
+    () => Task,
+    (task: Task) => task.checkList,
+  )
+  task: Task;
 }
