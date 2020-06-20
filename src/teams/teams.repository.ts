@@ -67,7 +67,11 @@ export class TeamsRepository extends Repository<Team> {
 
   async getCourses(teamId: number): Promise<Course[]> {
     const team = await this.getTeamWithCourseRelation(teamId);
-    return team.courses;
+    if (team) {
+      return team.courses;
+    } else {
+      throw new ConflictException('There is no team with the provided ID');
+    }
   }
 
   async createCourses(
