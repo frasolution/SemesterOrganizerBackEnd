@@ -24,9 +24,7 @@ export class CoursesService {
     editCourseDto: EditCourseDto,
     courseId: number,
   ): Promise<void> {
-    const course = await this.coursesRepository.findOne(courseId).catch();
-    course.courseName = editCourseDto.courseName;
-    await this.coursesRepository.update(courseId, course);
-    return;
+    const { courseName } = editCourseDto;
+    await this.coursesRepository.update(courseId, { courseName });
   }
 }
