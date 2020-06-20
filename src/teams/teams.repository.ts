@@ -56,7 +56,12 @@ export class TeamsRepository extends Repository<Team> {
     try {
       await team.save();
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      if (error.code === '23505') {
+        throw new ConflictException('Team with provided users already exists');
+      } else {
+        console.error(error);
+        throw new InternalServerErrorException(error);
+      }
     }
   }
 
