@@ -22,6 +22,7 @@ import { CoursesService } from '../courses/courses.service';
 import { EditCourseDto } from '../courses/dto/edit-course.dto';
 import { CreateCoursesDto } from '../courses/dto/create-courses.dto';
 import { Note } from 'src/notes/notes.entity';
+import { NoteDto } from 'src/notes/dto/note.dto';
 
 @Controller('teams')
 @UseGuards(AuthGuard())
@@ -96,5 +97,14 @@ export class TeamsController {
   @Get(':teamId/courses/:courseId/notes')
   getAllCoursesNotes(@Param('courseId') courseId: number): Promise<Note[]> {
     return this.coursesService.getNotes(courseId);
+  }
+
+  @Post(':teamId/courses/:courseId/notes')
+  createNote(
+    @Param('courseId') courseId: number,
+    @Body(ValidationPipe) noteDto: NoteDto,
+  ): Promise<void> {
+    this.coursesService.createNote(courseId, noteDto);
+    return;
   }
 }
