@@ -19,7 +19,6 @@ export class CoursesService {
     await this.coursesRepository.delete(courseId);
   }
 
-  //TODO optimize
   async updateOne(
     editCourseDto: EditCourseDto,
     courseId: number,
