@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CoursesRepository } from './courses.repository';
 import { Course } from './courses.entity';
 import { EditCourseDto } from './dto/edit-course.dto';
+import { Note } from 'src/notes/notes.entity';
 
 @Injectable()
 export class CoursesService {
@@ -25,5 +26,9 @@ export class CoursesService {
   ): Promise<void> {
     const { courseName } = editCourseDto;
     await this.coursesRepository.update(courseId, { courseName });
+  }
+
+  async getNotes(courseId: number): Promise<Note[]> {
+    return (await this.coursesRepository.findOne(courseId)).notes;
   }
 }
