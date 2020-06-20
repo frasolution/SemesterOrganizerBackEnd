@@ -29,6 +29,7 @@ export class Course extends BaseEntity {
   @ManyToOne(
     () => Team,
     team => team.courses,
+    { onDelete: 'CASCADE' },
   )
   team: Team;
 

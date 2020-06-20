@@ -32,10 +32,4 @@ export class Team extends BaseEntity {
     { cascade: true },
   )
   courses: Course[];
-
-  @OneToMany(
-    () => Task,
-    task => task.team,
-  )
-  task: Team[];
 }

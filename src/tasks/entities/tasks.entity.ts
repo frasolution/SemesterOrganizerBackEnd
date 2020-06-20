@@ -1,11 +1,4 @@
-import {
-  Entity,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinTable,
-} from 'typeorm';
+import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { Team } from '../../teams/team.entity';
 
 @Entity()
@@ -24,11 +17,4 @@ export class Task extends BaseEntity {
 
   @Column()
   dueDate: Date;
-
-  @ManyToOne(
-    () => Team,
-    team => team.task,
-  )
-  @JoinTable()
-  team: Team;
 }
