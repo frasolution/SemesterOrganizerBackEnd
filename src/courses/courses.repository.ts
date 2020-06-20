@@ -21,6 +21,9 @@ export class CoursesRepository extends Repository<Course> {
   async createNote(courseId: number, noteDto: NoteDto): Promise<void> {
     const newNotes: Note[] = [];
     const course = await this.getCourseWithNoteRelation(courseId);
+    if (!course) {
+      throw new ConflictException('There is no course with the provided ID');
+    }
     const { title, description } = noteDto;
 
     const note = new Note();
