@@ -20,7 +20,8 @@ export class Note extends BaseEntity {
 
   @ManyToOne(
     () => Course,
-    (course: Course) => course.note,
+    (course: Course) => course.notes,
+    { onDelete: 'CASCADE' },
   )
   course: Course;
 }
