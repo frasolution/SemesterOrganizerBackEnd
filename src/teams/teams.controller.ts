@@ -13,17 +13,22 @@ import { AuthGuard } from '@nestjs/passport';
 
 import { TeamsService } from './teams.service';
 import { Team } from './team.entity';
+import { EditTeamDto } from './dto/edit-team.dto';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { GetUser } from '../auth/getUser.decorator';
 import { User } from '../users/user.entity';
 import { Course } from '../courses/courses.entity';
+import { CoursesService } from '../courses/courses.service';
+import { EditCourseDto } from '../courses/dto/edit-course.dto';
 import { CreateCoursesDto } from '../courses/dto/create-courses.dto';
-import { EditTeamDto } from './dto/edit-team.dto';
 
 @Controller('teams')
 @UseGuards(AuthGuard())
 export class TeamsController {
-  constructor(private readonly teamsService: TeamsService) {}
+  constructor(
+    private readonly teamsService: TeamsService,
+    private readonly coursesService: CoursesService,
+  ) {}
 
   @Get('/')
   getTeams(@GetUser() user: User): Promise<Team[]> {
@@ -67,5 +72,23 @@ export class TeamsController {
     @Body(ValidationPipe) createCoursesDto: CreateCoursesDto,
   ): Promise<void> {
     return this.teamsService.createCourses(teamId, createCoursesDto);
+  }
+
+  @Get(':teamId/courses/:courseId')
+  findOneCourse(@Param('courseId') courseId: number): Promise<Course> {
+    return this.coursesService.findOne(courseId);
+  }
+
+  @Delete(':teamId/courses/:courseId')
+  removeOneCourse(@Param('courseId') courseId: number): Promise<void> {
+    return this.coursesService.removeOne(courseId);
+  }
+
+  @Patch(':teamId/courses/:courseId')
+  updateOneCourse(
+    @Body(ValidationPipe) editCourseDto: EditCourseDto,
+    @Param('courseId') courseId: number,
+  ): Promise<void> {
+    return this.coursesService.updateOne(editCourseDto, courseId);
   }
 }
