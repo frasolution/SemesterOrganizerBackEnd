@@ -7,6 +7,7 @@ import { TeamsRepository } from './teams.repository';
 import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';
 import { CoursesModule } from '../courses/courses.module';
+import { NotesModule } from '../notes/notes.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CoursesModule } from '../courses/courses.module';
     UsersModule,
     AuthModule,
     CoursesModule,
+    NotesModule,
   ],
   controllers: [TeamsController],
   providers: [TeamsService],
