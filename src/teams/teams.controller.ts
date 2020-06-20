@@ -7,6 +7,7 @@ import {
   Body,
   ValidationPipe,
   UseGuards,
+  Patch,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -17,6 +18,7 @@ import { GetUser } from '../auth/getUser.decorator';
 import { User } from '../users/user.entity';
 import { Course } from '../courses/courses.entity';
 import { CreateCoursesDto } from '../courses/dto/create-courses.dto';
+import { EditTeamDto } from './dto/edit-team.dto';
 
 @Controller('teams')
 @UseGuards(AuthGuard())
@@ -34,6 +36,14 @@ export class TeamsController {
     @GetUser() user: User,
   ): Promise<void> {
     return this.teamsService.createTeam(createTeamDto, user);
+  }
+
+  @Patch(':teamId')
+  editTeam(
+    @Param('teamId') teamId: number,
+    @Body(ValidationPipe) editTeamDto: EditTeamDto,
+  ): Promise<void> {
+    return this.teamsService.editTeam(teamId, editTeamDto);
   }
 
   @Get(':teamId')

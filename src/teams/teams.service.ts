@@ -7,6 +7,7 @@ import { UsersRepository } from 'src/users/users.repository';
 import { User } from '../users/user.entity';
 import { Course } from '../courses/courses.entity';
 import { CreateCoursesDto } from 'src/courses/dto/create-courses.dto';
+import { EditTeamDto } from './dto/edit-team.dto';
 
 @Injectable()
 export class TeamsService {
@@ -38,6 +39,11 @@ export class TeamsService {
     createCoursesDto: CreateCoursesDto,
   ): Promise<void> {
     return await this.teamsRepository.createCourses(teamId, createCoursesDto);
+  }
+
+  async editTeam(teamId: number, editTeamDto: EditTeamDto): Promise<void> {
+    const { teamName } = editTeamDto;
+    await this.teamsRepository.update(teamId, { name: teamName });
   }
 
   async findOne(teamId: number): Promise<Team> {
