@@ -43,7 +43,6 @@ export class Course extends BaseEntity {
   @OneToMany(
     () => Note,
     note => note.course,
-    { cascade: true },
   )
   notes: Note[];
 }
