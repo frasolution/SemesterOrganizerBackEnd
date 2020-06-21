@@ -134,6 +134,11 @@ export class TeamsController {
     return this.notesService.updateOne(noteDto, noteId);
   }
 
+  @Get(':teamId/courses/:courseId/columns/')
+  getAllColumns(@Param('courseId') courseId: number): Promise<Columns[]> {
+    return this.coursesService.getColumns(courseId);
+  }
+
   @Post(':teamId/courses/:courseId/columns')
   createColumn(
     @Param('courseId') courseId: number,

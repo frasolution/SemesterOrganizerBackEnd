@@ -40,6 +40,15 @@ export class CoursesRepository extends Repository<Course> {
     }
   }
 
+  async getColumns(courseId: number): Promise<Columns[]> {
+    const course = await this.getCourseWithRelation('columns', courseId);
+    if (course) {
+      return course.columns;
+    } else {
+      throw new ConflictException('There is no course with the provided ID');
+    }
+  }
+
   async createColumn(
     courseId: number,
     createColumnDto: CreateColumnDto,

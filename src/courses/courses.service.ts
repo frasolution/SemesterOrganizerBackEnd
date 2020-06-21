@@ -35,6 +35,10 @@ export class CoursesService {
     return await this.coursesRepository.getNotes(courseId);
   }
 
+  async getColumns(courseId: number): Promise<Columns[]> {
+    return await this.coursesRepository.getColumns(courseId);
+  }
+
   async createNote(courseId: number, noteDto: NoteDto): Promise<void> {
     return await this.coursesRepository.createNote(courseId, noteDto);
   }
