@@ -104,7 +104,6 @@ export class TeamsController {
     @Param('courseId') courseId: number,
     @Body(ValidationPipe) noteDto: NoteDto,
   ): Promise<void> {
-    this.coursesService.createNote(courseId, noteDto);
-    return;
+    return this.coursesService.createNote(courseId, noteDto);
   }
 }

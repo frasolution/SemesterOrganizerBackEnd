@@ -19,23 +19,24 @@ export class CoursesRepository extends Repository<Course> {
   }
 
   async createNote(courseId: number, noteDto: NoteDto): Promise<void> {
-    const newNotes: Note[] = [];
+    const note = new Note();
     const course = await this.getCourseWithNoteRelation(courseId);
     if (!course) {
       throw new ConflictException('There is no course with the provided ID');
     }
     const { title, description } = noteDto;
 
-    const note = new Note();
     note.title = title;
     note.description = description;
-    newNotes.push(note);
 
     try {
-      course.notes = course.notes.concat(newNotes);
+      course.notes.push(note);
       course.save();
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(
+        error,
+        'Error while saving note for course',
+      );
     }
   }
 

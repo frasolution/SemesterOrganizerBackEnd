@@ -34,6 +34,6 @@ export class CoursesService {
   }
 
   async createNote(courseId: number, noteDto: NoteDto): Promise<void> {
-    await this.coursesRepository.createNote(courseId, noteDto);
+    return await this.coursesRepository.createNote(courseId, noteDto);
   }
 }
