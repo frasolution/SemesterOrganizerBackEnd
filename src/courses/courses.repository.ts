@@ -6,11 +6,13 @@ import {
   InternalServerErrorException,
   ConflictException,
 } from '@nestjs/common';
+import { Columns } from 'src/columns/columns.entity';
+import { CreateColumnDto } from 'src/columns/dto/create-column.dto';
 
 @EntityRepository(Course)
 export class CoursesRepository extends Repository<Course> {
   async getNotes(courseId: number): Promise<Note[]> {
-    const course = await this.getCourseWithNoteRelation(courseId);
+    const course = await this.getCourseWithRelation('notes', courseId);
     if (course) {
       return course.notes;
     } else {
@@ -20,10 +22,8 @@ export class CoursesRepository extends Repository<Course> {
 
   async createNote(courseId: number, noteDto: NoteDto): Promise<void> {
     const note = new Note();
-    const course = await this.getCourseWithNoteRelation(courseId);
-    if (!course) {
-      throw new ConflictException('There is no course with the provided ID');
-    }
+    const course = await this.getCourseWithRelation('notes', courseId);
+    this.validateCourse(course);
     const { title, description } = noteDto;
 
     note.title = title;
@@ -40,10 +40,38 @@ export class CoursesRepository extends Repository<Course> {
     }
   }
 
-  private async getCourseWithNoteRelation(courseId: number) {
+  async createColumn(
+    courseId: number,
+    createColumnDto: CreateColumnDto,
+  ): Promise<void> {
+    const { columnName } = createColumnDto;
+    const column = new Columns();
+    const course = await this.getCourseWithRelation('columns', courseId);
+    this.validateCourse(course);
+
+    column.title = columnName;
+
+    try {
+      course.columns.push(column);
+      course.save();
+    } catch (error) {
+      throw new InternalServerErrorException(
+        error,
+        'Error while saving column for course',
+      );
+    }
+  }
+
+  private async getCourseWithRelation(relation: string, courseId: number) {
     return await this.findOne({
-      relations: ['notes'],
+      relations: [relation],
       where: { id: courseId },
     });
+  }
+
+  private validateCourse(course: Course) {
+    if (!course) {
+      throw new ConflictException('There is no course with the provided ID');
+    }
   }
 }
