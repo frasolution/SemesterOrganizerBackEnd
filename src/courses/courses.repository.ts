@@ -62,8 +62,6 @@ export class CoursesRepository extends Repository<Course> {
     }
   }
 
-  private async;
-
   private async getCourseWithRelation(relation: string, courseId: number) {
     return await this.findOne({
       relations: [relation],

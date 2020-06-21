@@ -25,6 +25,8 @@ import { Note } from 'src/notes/notes.entity';
 import { NoteDto } from 'src/notes/dto/note.dto';
 import { CreateColumnDto } from 'src/columns/dto/create-column.dto';
 import { Columns } from 'src/columns/columns.entity';
+import { CreateTaskDto } from 'src/tasks/dto/create-task.dto';
+import { ColumnsService } from 'src/columns/columns.service';
 
 @Controller('teams')
 @UseGuards(AuthGuard())
@@ -32,6 +34,7 @@ export class TeamsController {
   constructor(
     private readonly teamsService: TeamsService,
     private readonly coursesService: CoursesService,
+    private readonly columnsService: ColumnsService,
   ) {}
 
   @Get('/')
@@ -115,5 +118,13 @@ export class TeamsController {
     @Body(ValidationPipe) createColumnDto: CreateColumnDto,
   ): Promise<void> {
     return this.coursesService.createColumn(courseId, createColumnDto);
+  }
+
+  @Post(':teamId/courses/:courseId/columns/:columnId/tasks')
+  createTask(
+    @Param('columnId') columnId: number,
+    @Body(ValidationPipe) createTaskDto: CreateTaskDto,
+  ): Promise<void> {
+    return this.columnsService.createTask(columnId, createTaskDto);
   }
 }

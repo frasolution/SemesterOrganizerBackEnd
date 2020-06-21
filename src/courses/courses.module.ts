@@ -3,11 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CoursesService } from './courses.service';
 import { CoursesRepository } from './courses.repository';
-import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CoursesRepository]), AuthModule],
-  controllers: [],
+  imports: [TypeOrmModule.forFeature([CoursesRepository])],
   providers: [CoursesService],
   exports: [CoursesService],
 })

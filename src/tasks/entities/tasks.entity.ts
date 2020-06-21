@@ -21,13 +21,13 @@ export class Task extends BaseEntity {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   priority: number;
 
-  @Column()
+  @Column({ nullable: true })
   dueDate: Date;
 
-  @Column()
+  @Column({ nullable: true })
   isCompleted: boolean;
 
   @OneToOne(

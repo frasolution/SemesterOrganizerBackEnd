@@ -27,6 +27,7 @@ export class Columns extends BaseEntity {
   @OneToMany(
     () => Task,
     task => task.column,
+    { cascade: true },
   )
   tasks: Task[];
 }
