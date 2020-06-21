@@ -21,9 +21,9 @@ import { Course } from '../courses/courses.entity';
 import { CoursesService } from '../courses/courses.service';
 import { EditCourseDto } from '../courses/dto/edit-course.dto';
 import { CreateCoursesDto } from '../courses/dto/create-courses.dto';
-import { Note } from 'src/notes/notes.entity';
+import { Note } from '../notes/notes.entity';
 import { NotesService } from '../notes/notes.service';
-import { NoteDto } from 'src/notes/dto/note.dto';
+import { NoteDto } from '../notes/dto/note.dto';
 
 @Controller('teams')
 @UseGuards(AuthGuard())

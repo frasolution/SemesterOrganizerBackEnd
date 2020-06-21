@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NotesRepository } from './notes.repository';
-import { AuthModule } from 'src/auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([NotesRepository]), AuthModule],

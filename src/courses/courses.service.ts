@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CoursesRepository } from './courses.repository';
 import { Course } from './courses.entity';
 import { EditCourseDto } from './dto/edit-course.dto';
-import { Note } from 'src/notes/notes.entity';
-import { NoteDto } from 'src/notes/dto/note.dto';
+import { Note } from '../notes/notes.entity';
+import { NoteDto } from '../notes/dto/note.dto';
 
 @Injectable()
 export class CoursesService {
