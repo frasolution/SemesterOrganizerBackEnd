@@ -20,10 +20,6 @@ export class NotesService {
   }
 
   async updateOne(noteDto: NoteDto, noteId: number): Promise<void> {
-    const { title, description } = noteDto;
-    const note = new Note();
-    if (title) note.title = title;
-    if (description) note.description = description;
-    await this.notesRepository.update(noteId, note);
+    return await this.notesRepository.editOne(noteDto, noteId);
   }
 }
