@@ -7,6 +7,7 @@ import { TeamsRepository } from './teams.repository';
 import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';
 import { CoursesModule } from '../courses/courses.module';
+import { NotesModule } from '../notes/notes.module';
 import { ColumnsModule } from '../columns/columns.module';
 
 @Module({
@@ -15,6 +16,7 @@ import { ColumnsModule } from '../columns/columns.module';
     AuthModule,
     UsersModule,
     CoursesModule,
+    NotesModule,
     ColumnsModule,
   ],
   controllers: [TeamsController],
