@@ -45,7 +45,7 @@ export class TeamsRepository extends Repository<Team> {
     }
 
     // add the user who created the team too, if he did not provided his username
-    if (!foundUsers.includes(user)) {
+    if (!foundUsers.find(u => u.id === user.id)) {
       foundUsers.push(user);
     }
 
