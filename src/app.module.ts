@@ -8,6 +8,7 @@ import { TeamsModule } from './teams/teams.module';
 import { TasksModule } from './tasks/tasks.module';
 import { NotesModule } from './notes/notes.module';
 import { CoursesModule } from './courses/courses.module';
+import { ColumnsModule } from './columns/columns.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CoursesModule } from './courses/courses.module';
     CoursesModule,
     TasksModule,
     NotesModule,
+    ColumnsModule,
   ],
 })
 export class AppModule {}

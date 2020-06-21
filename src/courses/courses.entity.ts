@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Team } from '../teams/team.entity';
 import { Note } from '../notes/notes.entity';
-import { Task } from 'src/tasks/entities/tasks.entity';
+import { Columns } from 'src/columns/columns.entity';
 
 @Entity()
 export class Course extends BaseEntity {
@@ -35,10 +35,11 @@ export class Course extends BaseEntity {
   team: Team;
 
   @OneToMany(
-    () => Task,
-    task => task.course,
+    () => Columns,
+    columns => columns.course,
+    { cascade: true },
   )
-  tasks: Task[];
+  columns: Columns[];
 
   @OneToMany(
     () => Note,

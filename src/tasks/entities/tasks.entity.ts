@@ -7,8 +7,8 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { Course } from 'src/courses/courses.entity';
 import { CheckList } from './checklist.entity';
+import { Columns } from 'src/columns/columns.entity';
 
 @Entity()
 export class Task extends BaseEntity {
@@ -38,9 +38,9 @@ export class Task extends BaseEntity {
   checkList: CheckList;
 
   @ManyToOne(
-    () => Course,
-    (course: Course) => course.tasks,
+    () => Columns,
+    (columns: Columns) => columns.tasks,
     { onDelete: 'CASCADE' },
   )
-  course: Course;
+  column: Columns;
 }

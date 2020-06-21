@@ -23,6 +23,8 @@ import { EditCourseDto } from '../courses/dto/edit-course.dto';
 import { CreateCoursesDto } from '../courses/dto/create-courses.dto';
 import { Note } from 'src/notes/notes.entity';
 import { NoteDto } from 'src/notes/dto/note.dto';
+import { CreateColumnDto } from 'src/columns/dto/create-column.dto';
+import { Columns } from 'src/columns/columns.entity';
 
 @Controller('teams')
 @UseGuards(AuthGuard())
@@ -105,5 +107,13 @@ export class TeamsController {
     @Body(ValidationPipe) noteDto: NoteDto,
   ): Promise<void> {
     return this.coursesService.createNote(courseId, noteDto);
+  }
+
+  @Post(':teamId/courses/:courseId/columns')
+  createColumn(
+    @Param('courseId') courseId: number,
+    @Body(ValidationPipe) createColumnDto: CreateColumnDto,
+  ): Promise<void> {
+    return this.coursesService.createColumn(courseId, createColumnDto);
   }
 }

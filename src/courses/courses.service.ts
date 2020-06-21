@@ -5,6 +5,8 @@ import { Course } from './courses.entity';
 import { EditCourseDto } from './dto/edit-course.dto';
 import { Note } from 'src/notes/notes.entity';
 import { NoteDto } from 'src/notes/dto/note.dto';
+import { CreateColumnDto } from 'src/columns/dto/create-column.dto';
+import { Columns } from 'src/columns/columns.entity';
 
 @Injectable()
 export class CoursesService {
@@ -35,5 +37,12 @@ export class CoursesService {
 
   async createNote(courseId: number, noteDto: NoteDto): Promise<void> {
     return await this.coursesRepository.createNote(courseId, noteDto);
+  }
+
+  async createColumn(
+    courseId: number,
+    createColumnDto: CreateColumnDto,
+  ): Promise<void> {
+    return await this.coursesRepository.createColumn(courseId, createColumnDto);
   }
 }
