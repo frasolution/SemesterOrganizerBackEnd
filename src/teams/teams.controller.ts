@@ -21,8 +21,9 @@ import { Course } from '../courses/courses.entity';
 import { CoursesService } from '../courses/courses.service';
 import { EditCourseDto } from '../courses/dto/edit-course.dto';
 import { CreateCoursesDto } from '../courses/dto/create-courses.dto';
-import { Note } from 'src/notes/notes.entity';
-import { NoteDto } from 'src/notes/dto/note.dto';
+import { Note } from '../notes/notes.entity';
+import { NotesService } from '../notes/notes.service';
+import { NoteDto } from '../notes/dto/note.dto';
 import { CreateColumnDto } from 'src/columns/dto/create-column.dto';
 import { Columns } from 'src/columns/columns.entity';
 import { CreateTaskDto } from 'src/tasks/dto/create-task.dto';
@@ -34,6 +35,7 @@ export class TeamsController {
   constructor(
     private readonly teamsService: TeamsService,
     private readonly coursesService: CoursesService,
+    private readonly notesService: NotesService,
     private readonly columnsService: ColumnsService,
   ) {}
 
@@ -110,6 +112,26 @@ export class TeamsController {
     @Body(ValidationPipe) noteDto: NoteDto,
   ): Promise<void> {
     return this.coursesService.createNote(courseId, noteDto);
+  }
+
+  @Get(':teamId/courses/:courseId/notes/:noteId')
+  //not affiliated with OneNote™
+  findOneNote(@Param('noteId') noteId: number): Promise<Note> {
+    return this.notesService.findOne(noteId);
+  }
+
+  @Delete(':teamId/courses/:courseId/notes/:noteId')
+  //not affiliated with OneNote™
+  removeOneNote(@Param('noteId') noteId: number): Promise<void> {
+    return this.notesService.removeOne(noteId);
+  }
+
+  @Patch(':teamId/courses/:courseId/notes/:noteId')
+  updateOneNote(
+    @Body(ValidationPipe) noteDto: NoteDto,
+    @Param('noteId') noteId: number,
+  ): Promise<void> {
+    return this.notesService.updateOne(noteDto, noteId);
   }
 
   @Get(':teamId/courses/:courseId/columns/')
