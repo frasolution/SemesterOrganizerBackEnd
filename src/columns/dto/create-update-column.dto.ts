@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, MinLength, MaxLength } from 'class-validator';
 
-export class CreateColumnDto {
+export class CreateAndUpdateColumnDto {
   @IsNotEmpty()
   @IsString()
   @MinLength(1)

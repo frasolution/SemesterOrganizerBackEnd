@@ -7,7 +7,7 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { Columns } from 'src/columns/columns.entity';
-import { CreateColumnDto } from 'src/columns/dto/create-column.dto';
+import { CreateAndUpdateColumnDto } from 'src/columns/dto/create-update-column.dto';
 
 @EntityRepository(Course)
 export class CoursesRepository extends Repository<Course> {
@@ -51,7 +51,7 @@ export class CoursesRepository extends Repository<Course> {
 
   async createColumn(
     courseId: number,
-    createColumnDto: CreateColumnDto,
+    createColumnDto: CreateAndUpdateColumnDto,
   ): Promise<void> {
     const { columnName } = createColumnDto;
     const column = new Columns();

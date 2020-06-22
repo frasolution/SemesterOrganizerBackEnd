@@ -24,7 +24,7 @@ import { CreateCoursesDto } from '../courses/dto/create-courses.dto';
 import { Note } from '../notes/notes.entity';
 import { NotesService } from '../notes/notes.service';
 import { NoteDto } from '../notes/dto/note.dto';
-import { CreateColumnDto } from 'src/columns/dto/create-column.dto';
+import { CreateAndUpdateColumnDto } from 'src/columns/dto/create-update-column.dto';
 import { Columns } from 'src/columns/columns.entity';
 import { CreateTaskDto } from 'src/tasks/dto/create-task.dto';
 import { ColumnsService } from 'src/columns/columns.service';
@@ -115,13 +115,11 @@ export class TeamsController {
   }
 
   @Get(':teamId/courses/:courseId/notes/:noteId')
-  //not affiliated with OneNote™
   findOneNote(@Param('noteId') noteId: number): Promise<Note> {
     return this.notesService.findOne(noteId);
   }
 
   @Delete(':teamId/courses/:courseId/notes/:noteId')
-  //not affiliated with OneNote™
   removeOneNote(@Param('noteId') noteId: number): Promise<void> {
     return this.notesService.removeOne(noteId);
   }
@@ -142,9 +140,17 @@ export class TeamsController {
   @Post(':teamId/courses/:courseId/columns')
   createColumn(
     @Param('courseId') courseId: number,
-    @Body(ValidationPipe) createColumnDto: CreateColumnDto,
+    @Body(ValidationPipe) createColumnDto: CreateAndUpdateColumnDto,
   ): Promise<void> {
     return this.coursesService.createColumn(courseId, createColumnDto);
+  }
+
+  @Patch(':teamId/courses/:courseId/columns/:columnId')
+  updateColumn(
+    @Param('columnId') columnId: number,
+    @Body(ValidationPipe) updateColumnDto: CreateAndUpdateColumnDto,
+  ): Promise<void> {
+    return this.columnsService.updateColumn(columnId, updateColumnDto);
   }
 
   @Post(':teamId/courses/:courseId/columns/:columnId/tasks')
