@@ -15,15 +15,15 @@ export class CoursesService {
     private coursesRepository: CoursesRepository,
   ) {}
 
-  async findOne(courseId: number): Promise<Course> {
+  async findCourse(courseId: number): Promise<Course> {
     return await this.coursesRepository.findOne(courseId);
   }
 
-  async removeOne(courseId: number): Promise<void> {
+  async removeCourse(courseId: number): Promise<void> {
     await this.coursesRepository.delete(courseId);
   }
 
-  async updateOne(
+  async updateCourse(
     editCourseDto: EditCourseDto,
     courseId: number,
   ): Promise<void> {

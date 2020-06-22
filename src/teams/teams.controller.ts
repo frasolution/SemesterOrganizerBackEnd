@@ -39,6 +39,7 @@ export class TeamsController {
     private readonly columnsService: ColumnsService,
   ) {}
 
+  // -------------------------- TEAMS ROUTES -------------------------- //
   @Get('/')
   getTeams(@GetUser() user: User): Promise<Team[]> {
     return this.teamsService.getTeams(user);
@@ -61,15 +62,16 @@ export class TeamsController {
   }
 
   @Get(':teamId')
-  findOne(@Param('teamId') teamId: number): Promise<Team> {
-    return this.teamsService.findOne(teamId);
+  findTeam(@Param('teamId') teamId: number): Promise<Team> {
+    return this.teamsService.findTeam(teamId);
   }
 
   @Delete(':teamId')
-  remove(@Param('teamId') teamId: number): Promise<void> {
-    return this.teamsService.remove(teamId);
+  removeTeam(@Param('teamId') teamId: number): Promise<void> {
+    return this.teamsService.removeTeam(teamId);
   }
 
+  // -------------------------- COURSES ROUTES -------------------------- //
   @Get(':teamId/courses')
   getCourses(@Param('teamId') teamId: number): Promise<Course[]> {
     return this.teamsService.getCourses(teamId);
@@ -84,25 +86,26 @@ export class TeamsController {
   }
 
   @Get(':teamId/courses/:courseId')
-  findOneCourse(@Param('courseId') courseId: number): Promise<Course> {
-    return this.coursesService.findOne(courseId);
+  findCourse(@Param('courseId') courseId: number): Promise<Course> {
+    return this.coursesService.findCourse(courseId);
   }
 
   @Delete(':teamId/courses/:courseId')
-  removeOneCourse(@Param('courseId') courseId: number): Promise<void> {
-    return this.coursesService.removeOne(courseId);
+  removeCourse(@Param('courseId') courseId: number): Promise<void> {
+    return this.coursesService.removeCourse(courseId);
   }
 
   @Patch(':teamId/courses/:courseId')
-  updateOneCourse(
+  updateCourse(
     @Body(ValidationPipe) editCourseDto: EditCourseDto,
     @Param('courseId') courseId: number,
   ): Promise<void> {
-    return this.coursesService.updateOne(editCourseDto, courseId);
+    return this.coursesService.updateCourse(editCourseDto, courseId);
   }
 
+  // -------------------------- NOTES ROUTES -------------------------- //
   @Get(':teamId/courses/:courseId/notes')
-  getAllCoursesNotes(@Param('courseId') courseId: number): Promise<Note[]> {
+  getNotes(@Param('courseId') courseId: number): Promise<Note[]> {
     return this.coursesService.getNotes(courseId);
   }
 
@@ -115,25 +118,26 @@ export class TeamsController {
   }
 
   @Get(':teamId/courses/:courseId/notes/:noteId')
-  findOneNote(@Param('noteId') noteId: number): Promise<Note> {
-    return this.notesService.findOne(noteId);
+  findNote(@Param('noteId') noteId: number): Promise<Note> {
+    return this.notesService.findNote(noteId);
   }
 
   @Delete(':teamId/courses/:courseId/notes/:noteId')
-  removeOneNote(@Param('noteId') noteId: number): Promise<void> {
-    return this.notesService.removeOne(noteId);
+  removeNote(@Param('noteId') noteId: number): Promise<void> {
+    return this.notesService.removeNote(noteId);
   }
 
   @Patch(':teamId/courses/:courseId/notes/:noteId')
-  updateOneNote(
+  updateNote(
     @Body(ValidationPipe) noteDto: NoteDto,
     @Param('noteId') noteId: number,
   ): Promise<void> {
-    return this.notesService.updateOne(noteDto, noteId);
+    return this.notesService.updateNote(noteDto, noteId);
   }
 
+  // -------------------------- COLUMN ROUTES -------------------------- //
   @Get(':teamId/courses/:courseId/columns/')
-  getAllColumns(@Param('courseId') courseId: number): Promise<Columns[]> {
+  getColumns(@Param('courseId') courseId: number): Promise<Columns[]> {
     return this.coursesService.getColumns(courseId);
   }
 
@@ -153,6 +157,12 @@ export class TeamsController {
     return this.columnsService.updateColumn(columnId, updateColumnDto);
   }
 
+  @Delete(':teamId/courses/:courseId/columns/:columnId')
+  deleteColumn(@Param('columnId') columnId: number): Promise<void> {
+    return this.columnsService.deleteCoumn(columnId);
+  }
+
+  // -------------------------- TASKS ROUTES -------------------------- //
   @Post(':teamId/courses/:courseId/columns/:columnId/tasks')
   createTask(
     @Param('columnId') columnId: number,

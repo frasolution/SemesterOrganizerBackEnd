@@ -46,11 +46,11 @@ export class TeamsService {
     await this.teamsRepository.update(teamId, { name: teamName });
   }
 
-  async findOne(teamId: number): Promise<Team> {
+  async findTeam(teamId: number): Promise<Team> {
     return await this.teamsRepository.findOne(teamId);
   }
 
-  async remove(teamId: number): Promise<void> {
+  async removeTeam(teamId: number): Promise<void> {
     await this.teamsRepository.delete(teamId);
   }
 }
