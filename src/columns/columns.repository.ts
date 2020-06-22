@@ -6,7 +6,7 @@ import {
 
 import { Columns } from './columns.entity';
 import { CreateTaskDto } from '../tasks/dto/create-task.dto';
-import { Task } from '../tasks/entities/tasks.entity';
+import { Task } from '../tasks/tasks.entity';
 
 @EntityRepository(Columns)
 export class ColumnsRepository extends Repository<Columns> {

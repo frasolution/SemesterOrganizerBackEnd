@@ -6,8 +6,8 @@ import {
   ManyToOne,
   Entity,
 } from 'typeorm';
-import { Task } from 'src/tasks/entities/tasks.entity';
-import { Course } from 'src/courses/courses.entity';
+import { Task } from '../tasks/tasks.entity';
+import { Course } from '../courses/courses.entity';
 
 @Entity()
 export class Columns extends BaseEntity {
