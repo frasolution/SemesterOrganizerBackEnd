@@ -7,8 +7,7 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { CheckList } from './checklist.entity';
-import { Columns } from 'src/columns/columns.entity';
+import { Columns } from '../columns/columns.entity';
 
 @Entity()
 export class Task extends BaseEntity {
@@ -29,13 +28,6 @@ export class Task extends BaseEntity {
 
   @Column({ nullable: true })
   isCompleted: boolean;
-
-  @OneToOne(
-    () => CheckList,
-    (checkList: CheckList) => checkList.task,
-  )
-  @JoinColumn()
-  checkList: CheckList;
 
   @ManyToOne(
     () => Columns,
