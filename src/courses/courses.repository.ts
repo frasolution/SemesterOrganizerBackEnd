@@ -41,7 +41,10 @@ export class CoursesRepository extends Repository<Course> {
   }
 
   async getColumns(courseId: number): Promise<Columns[]> {
-    const course = await this.getCourseWithRelation('columns', courseId);
+    const course = await this.findOne({
+      relations: ['columns', 'columns.tasks'],
+      where: { id: courseId },
+    });
     if (course) {
       return course.columns;
     } else {
