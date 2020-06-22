@@ -14,13 +14,15 @@ export class ColumnsRepository extends Repository<Columns> {
     columnId: number,
     createTaskDto: CreateTaskDto,
   ): Promise<void> {
-    const { title, description } = createTaskDto;
+    const { title, description, dueDate, priority } = createTaskDto;
     const task = new Task();
     const column = await this.getColumn(columnId);
     this.validateColumn(column);
 
     task.title = title;
     task.description = description;
+    task.dueDate = dueDate;
+    task.priority = priority;
 
     try {
       column.tasks.push(task);
