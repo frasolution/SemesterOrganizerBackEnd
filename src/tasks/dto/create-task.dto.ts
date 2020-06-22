@@ -8,6 +8,7 @@ import {
   IsNumber,
   Min,
   Max,
+  IsDateString,
 } from 'class-validator';
 
 export class CreateTaskDto {
@@ -23,8 +24,8 @@ export class CreateTaskDto {
   description: string;
 
   @IsOptional()
-  @IsDate()
-  dueDate: Date;
+  @IsDateString()
+  dueDate: string;
 
   @IsOptional()
   @IsNumber()

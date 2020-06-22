@@ -24,7 +24,7 @@ export class Task extends BaseEntity {
   priority: number;
 
   @Column({ nullable: true })
-  dueDate: Date;
+  dueDate: string;
 
   @Column({ nullable: true })
   isCompleted: boolean;
