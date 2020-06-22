@@ -10,6 +10,15 @@ import { Task } from '../tasks/tasks.entity';
 
 @EntityRepository(Columns)
 export class ColumnsRepository extends Repository<Columns> {
+  async getTasks(columnId: number): Promise<Task[]> {
+    const column = await this.getColumn(columnId);
+    if (column) {
+      return column.tasks;
+    } else {
+      throw new ConflictException('There is no column with the provided ID');
+    }
+  }
+
   async createTask(
     columnId: number,
     createTaskDto: CreateTaskDto,

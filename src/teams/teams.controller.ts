@@ -28,6 +28,7 @@ import { CreateAndUpdateColumnDto } from 'src/columns/dto/create-update-column.d
 import { Columns } from 'src/columns/columns.entity';
 import { CreateTaskDto } from 'src/tasks/dto/create-task.dto';
 import { ColumnsService } from 'src/columns/columns.service';
+import { Task } from 'src/tasks/tasks.entity';
 
 @Controller('teams')
 @UseGuards(AuthGuard())
@@ -169,5 +170,10 @@ export class TeamsController {
     @Body(ValidationPipe) createTaskDto: CreateTaskDto,
   ): Promise<void> {
     return this.columnsService.createTask(columnId, createTaskDto);
+  }
+
+  @Get(':teamId/courses/:courseId/columns/:columnId/tasks')
+  getTasks(@Param('columnId') columnId: number): Promise<Task[]> {
+    return this.columnsService.getTasks(columnId);
   }
 }
