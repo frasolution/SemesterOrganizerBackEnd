@@ -28,6 +28,8 @@ import { CreateAndUpdateColumnDto } from 'src/columns/dto/create-update-column.d
 import { Columns } from 'src/columns/columns.entity';
 import { CreateTaskDto } from 'src/tasks/dto/create-task.dto';
 import { ColumnsService } from 'src/columns/columns.service';
+import { TasksService } from 'src/tasks/tasks.service';
+import { Task } from 'src/tasks/tasks.entity';
 
 @Controller('teams')
 @UseGuards(AuthGuard())
@@ -37,6 +39,7 @@ export class TeamsController {
     private readonly coursesService: CoursesService,
     private readonly notesService: NotesService,
     private readonly columnsService: ColumnsService,
+    private readonly tasksService: TasksService,
   ) {}
 
   // -------------------------- TEAMS ROUTES -------------------------- //
@@ -169,5 +172,23 @@ export class TeamsController {
     @Body(ValidationPipe) createTaskDto: CreateTaskDto,
   ): Promise<void> {
     return this.columnsService.createTask(columnId, createTaskDto);
+  }
+
+  @Get(':teamId/courses/:courseId/columns/:columnId/tasks/:taskId')
+  findTask(@Param('taskId') taskId: number): Promise<Task> {
+    return this.tasksService.findTask(taskId);
+  }
+
+  @Delete(':teamId/courses/:courseId/columns/:columnId/tasks/:taskId')
+  deleteTask(@Param('taskId') taskId: number): Promise<void> {
+    return this.tasksService.removeTask(taskId);
+  }
+
+  @Patch(':teamId/courses/:courseId/columns/:columnId/tasks/:taskId')
+  updateTask(
+    @Param('taskId') taskId: number,
+    @Body(ValidationPipe) editTaskDto: CreateTaskDto,
+  ): Promise<void> {
+    return this.tasksService.updateTask(taskId, editTaskDto);
   }
 }

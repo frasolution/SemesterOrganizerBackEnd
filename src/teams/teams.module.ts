@@ -9,6 +9,7 @@ import { AuthModule } from '../auth/auth.module';
 import { CoursesModule } from '../courses/courses.module';
 import { NotesModule } from '../notes/notes.module';
 import { ColumnsModule } from '../columns/columns.module';
+import { TasksModule } from 'src/tasks/tasks.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ColumnsModule } from '../columns/columns.module';
     CoursesModule,
     NotesModule,
     ColumnsModule,
+    TasksModule,
   ],
   controllers: [TeamsController],
   providers: [TeamsService],
