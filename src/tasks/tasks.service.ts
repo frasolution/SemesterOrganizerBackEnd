@@ -27,4 +27,8 @@ export class TasksService {
       priority,
     });
   }
+
+  async completeTask(taskId: number): Promise<void> {
+    await this.tasksRepository.update(taskId, { isCompleted: true });
+  }
 }

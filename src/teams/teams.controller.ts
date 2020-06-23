@@ -195,4 +195,9 @@ export class TeamsController {
   ): Promise<void> {
     return this.columnsService.moveTask(columnId, taskId, moveTaskDto);
   }
+
+  @Patch(':teamId/courses/:courseId/columns/:columnId/tasks/:taskId/complete')
+  completeTask(@Param('taskId') taskId: number): Promise<void> {
+    return this.tasksService.completeTask(taskId);
+  }
 }
