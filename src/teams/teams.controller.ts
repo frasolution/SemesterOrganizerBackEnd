@@ -197,7 +197,10 @@ export class TeamsController {
   }
 
   @Patch(':teamId/courses/:courseId/columns/:columnId/tasks/:taskId/complete')
-  completeTask(@Param('taskId') taskId: number): Promise<void> {
-    return this.tasksService.completeTask(taskId);
+  completeTask(
+    @Param('taskId') taskId: number,
+    @Body() body: { isCompleted: boolean },
+  ): Promise<void> {
+    return this.tasksService.completeTask(taskId, body);
   }
 }

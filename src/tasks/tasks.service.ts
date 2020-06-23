@@ -28,7 +28,12 @@ export class TasksService {
     });
   }
 
-  async completeTask(taskId: number): Promise<void> {
-    await this.tasksRepository.update(taskId, { isCompleted: true });
+  async completeTask(
+    taskId: number,
+    body: { isCompleted: boolean },
+  ): Promise<void> {
+    await this.tasksRepository.update(taskId, {
+      isCompleted: !body.isCompleted,
+    });
   }
 }
