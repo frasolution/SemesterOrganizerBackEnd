@@ -23,6 +23,7 @@ export class ColumnsRepository extends Repository<Columns> {
     task.description = description;
     task.dueDate = dueDate;
     task.priority = priority;
+    task.isCompleted = false;
 
     try {
       column.tasks.push(task);
