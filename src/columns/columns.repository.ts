@@ -5,14 +5,14 @@ import {
 } from '@nestjs/common';
 
 import { Columns } from './columns.entity';
-import { CreateTaskDto } from '../tasks/dto/create-task.dto';
+import { CreateAndUpdateTaskDto } from '../tasks/dto/create-task.dto';
 import { Task } from '../tasks/tasks.entity';
 
 @EntityRepository(Columns)
 export class ColumnsRepository extends Repository<Columns> {
   async createTask(
     columnId: number,
-    createTaskDto: CreateTaskDto,
+    createTaskDto: CreateAndUpdateTaskDto,
   ): Promise<void> {
     const { title, description, dueDate, priority } = createTaskDto;
     const task = new Task();

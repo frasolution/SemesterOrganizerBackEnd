@@ -3,7 +3,6 @@ import {
   IsString,
   MinLength,
   MaxLength,
-  IsDate,
   IsOptional,
   IsNumber,
   Min,
@@ -11,7 +10,7 @@ import {
   IsDateString,
 } from 'class-validator';
 
-export class CreateTaskDto {
+export class CreateAndUpdateTaskDto {
   @IsNotEmpty()
   @IsString()
   @MinLength(1)

@@ -26,7 +26,7 @@ import { NotesService } from '../notes/notes.service';
 import { NoteDto } from '../notes/dto/note.dto';
 import { CreateAndUpdateColumnDto } from '../columns/dto/create-update-column.dto';
 import { Columns } from '../columns/columns.entity';
-import { CreateTaskDto } from '../tasks/dto/create-task.dto';
+import { CreateAndUpdateTaskDto } from '../tasks/dto/create-task.dto';
 import { ColumnsService } from '../columns/columns.service';
 import { TasksService } from '../tasks/tasks.service';
 
@@ -168,7 +168,7 @@ export class TeamsController {
   @Post(':teamId/courses/:courseId/columns/:columnId/tasks')
   createTask(
     @Param('columnId') columnId: number,
-    @Body(ValidationPipe) createTaskDto: CreateTaskDto,
+    @Body(ValidationPipe) createTaskDto: CreateAndUpdateTaskDto,
   ): Promise<void> {
     return this.columnsService.createTask(columnId, createTaskDto);
   }
@@ -176,5 +176,13 @@ export class TeamsController {
   @Delete(':teamId/courses/:courseId/columns/:columnId/tasks/:taskId')
   deleteTask(@Param('taskId') taskId: number): Promise<void> {
     return this.tasksService.deleteTask(taskId);
+  }
+
+  @Patch(':teamId/courses/:courseId/columns/:columnId/tasks/:taskId')
+  updateTask(
+    @Param('taskId') taskId: number,
+    @Body(ValidationPipe) updateTaskDto: CreateAndUpdateTaskDto,
+  ): Promise<void> {
+    return this.tasksService.updateTask(taskId, updateTaskDto);
   }
 }
