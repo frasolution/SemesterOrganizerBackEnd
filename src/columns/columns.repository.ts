@@ -5,8 +5,9 @@ import {
 } from '@nestjs/common';
 
 import { Columns } from './columns.entity';
-import { CreateAndUpdateTaskDto } from '../tasks/dto/create-task.dto';
 import { Task } from '../tasks/tasks.entity';
+import { CreateAndUpdateTaskDto } from '../tasks/dto/create-task.dto';
+import { MoveTaskDto } from '../tasks/dto/move-task.dto';
 
 @EntityRepository(Columns)
 export class ColumnsRepository extends Repository<Columns> {
@@ -32,6 +33,41 @@ export class ColumnsRepository extends Repository<Columns> {
       throw new InternalServerErrorException(
         error,
         'Error while saving task for column',
+      );
+    }
+  }
+
+  async moveTask(moveTaskDto: MoveTaskDto): Promise<void> {
+    const {
+      selectedColumnId,
+      title,
+      description,
+      dueDate,
+      priority,
+      isCompleted,
+    } = moveTaskDto;
+
+    // get start and destination column
+    const newColumn = await this.getColumn(selectedColumnId);
+    this.validateColumn(newColumn);
+
+    // create copy of task to move
+    const task = new Task();
+    task.title = title;
+    task.description = description;
+    task.dueDate = dueDate;
+    task.priority = priority;
+    task.isCompleted = isCompleted;
+
+    // delete task from old column and push it to new one
+
+    try {
+      newColumn.tasks.push(task);
+      newColumn.save();
+    } catch (error) {
+      throw new InternalServerErrorException(
+        error,
+        'Error while trying to move task',
       );
     }
   }

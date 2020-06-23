@@ -29,6 +29,7 @@ import { Columns } from '../columns/columns.entity';
 import { CreateAndUpdateTaskDto } from '../tasks/dto/create-task.dto';
 import { ColumnsService } from '../columns/columns.service';
 import { TasksService } from '../tasks/tasks.service';
+import { MoveTaskDto } from '../tasks/dto/move-task.dto';
 
 @Controller('teams')
 @UseGuards(AuthGuard())
@@ -184,5 +185,14 @@ export class TeamsController {
     @Body(ValidationPipe) updateTaskDto: CreateAndUpdateTaskDto,
   ): Promise<void> {
     return this.tasksService.updateTask(taskId, updateTaskDto);
+  }
+
+  @Patch(':teamId/courses/:courseId/columns/:columnId/tasks/:taskId/move')
+  moveTask(
+    @Param('columnId') columnId: number,
+    @Param('taskId') taskId: number,
+    @Body(ValidationPipe) moveTaskDto: MoveTaskDto,
+  ): Promise<void> {
+    return this.columnsService.moveTask(columnId, taskId, moveTaskDto);
   }
 }
