@@ -30,27 +30,27 @@ export class TeamsService {
     );
   }
 
-  async getCourses(teamId: number): Promise<Course[]> {
+  async getCourses(teamId: string): Promise<Course[]> {
     return await this.teamsRepository.getCourses(teamId);
   }
 
   async createCourses(
-    teamId: number,
+    teamId: string,
     createCoursesDto: CreateCoursesDto,
   ): Promise<void> {
     return await this.teamsRepository.createCourses(teamId, createCoursesDto);
   }
 
-  async editTeam(teamId: number, editTeamDto: EditTeamDto): Promise<void> {
+  async editTeam(teamId: string, editTeamDto: EditTeamDto): Promise<void> {
     const { teamName } = editTeamDto;
     await this.teamsRepository.update(teamId, { name: teamName });
   }
 
-  async findTeam(teamId: number): Promise<Team> {
+  async findTeam(teamId: string): Promise<Team> {
     return await this.teamsRepository.findOne(teamId);
   }
 
-  async removeTeam(teamId: number): Promise<void> {
+  async removeTeam(teamId: string): Promise<void> {
     await this.teamsRepository.delete(teamId);
   }
 }

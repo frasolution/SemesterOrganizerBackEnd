@@ -9,8 +9,8 @@ import { Columns } from '../columns/columns.entity';
 
 @Entity()
 export class Task extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   title: string;

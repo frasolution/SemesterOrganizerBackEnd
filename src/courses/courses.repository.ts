@@ -11,7 +11,7 @@ import { CreateAndUpdateColumnDto } from 'src/columns/dto/create-update-column.d
 
 @EntityRepository(Course)
 export class CoursesRepository extends Repository<Course> {
-  async getNotes(courseId: number): Promise<Note[]> {
+  async getNotes(courseId: string): Promise<Note[]> {
     const course = await this.getCourseWithRelation('notes', courseId);
     if (course) {
       return course.notes;
@@ -20,7 +20,7 @@ export class CoursesRepository extends Repository<Course> {
     }
   }
 
-  async createNote(courseId: number, noteDto: NoteDto): Promise<void> {
+  async createNote(courseId: string, noteDto: NoteDto): Promise<void> {
     const note = new Note();
     const course = await this.getCourseWithRelation('notes', courseId);
     this.validateCourse(course);
@@ -40,7 +40,7 @@ export class CoursesRepository extends Repository<Course> {
     }
   }
 
-  async getColumns(courseId: number): Promise<Columns[]> {
+  async getColumns(courseId: string): Promise<Columns[]> {
     const course = await this.findOne({
       relations: ['columns', 'columns.tasks'],
       where: { id: courseId },
@@ -53,7 +53,7 @@ export class CoursesRepository extends Repository<Course> {
   }
 
   async createColumn(
-    courseId: number,
+    courseId: string,
     createColumnDto: CreateAndUpdateColumnDto,
   ): Promise<void> {
     const { columnName } = createColumnDto;
@@ -74,7 +74,7 @@ export class CoursesRepository extends Repository<Course> {
     }
   }
 
-  private async getCourseWithRelation(relation: string, courseId: number) {
+  private async getCourseWithRelation(relation: string, courseId: string) {
     return await this.findOne({
       relations: [relation],
       where: { id: courseId },

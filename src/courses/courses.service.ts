@@ -15,36 +15,36 @@ export class CoursesService {
     private coursesRepository: CoursesRepository,
   ) {}
 
-  async findCourse(courseId: number): Promise<Course> {
+  async findCourse(courseId: string): Promise<Course> {
     return await this.coursesRepository.findOne(courseId);
   }
 
-  async removeCourse(courseId: number): Promise<void> {
+  async removeCourse(courseId: string): Promise<void> {
     await this.coursesRepository.delete(courseId);
   }
 
   async updateCourse(
     editCourseDto: EditCourseDto,
-    courseId: number,
+    courseId: string,
   ): Promise<void> {
     const { courseName } = editCourseDto;
     await this.coursesRepository.update(courseId, { courseName });
   }
 
-  async getNotes(courseId: number): Promise<Note[]> {
+  async getNotes(courseId: string): Promise<Note[]> {
     return await this.coursesRepository.getNotes(courseId);
   }
 
-  async getColumns(courseId: number): Promise<Columns[]> {
+  async getColumns(courseId: string): Promise<Columns[]> {
     return await this.coursesRepository.getColumns(courseId);
   }
 
-  async createNote(courseId: number, noteDto: NoteDto): Promise<void> {
+  async createNote(courseId: string, noteDto: NoteDto): Promise<void> {
     return await this.coursesRepository.createNote(courseId, noteDto);
   }
 
   async createColumn(
-    courseId: number,
+    courseId: string,
     createColumnDto: CreateAndUpdateColumnDto,
   ): Promise<void> {
     return await this.coursesRepository.createColumn(courseId, createColumnDto);

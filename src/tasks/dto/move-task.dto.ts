@@ -9,12 +9,14 @@ import {
   Max,
   IsDateString,
   IsBoolean,
+  IsUUID,
 } from 'class-validator';
 
 export class MoveTaskDto {
   @IsNotEmpty()
-  @IsNumber()
-  selectedColumnId: number;
+  @IsString()
+  @IsUUID()
+  selectedColumnId: string;
 
   @IsNotEmpty()
   @IsString()

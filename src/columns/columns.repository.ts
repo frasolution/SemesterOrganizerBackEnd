@@ -12,7 +12,7 @@ import { MoveTaskDto } from '../tasks/dto/move-task.dto';
 @EntityRepository(Columns)
 export class ColumnsRepository extends Repository<Columns> {
   async createTask(
-    columnId: number,
+    columnId: string,
     createTaskDto: CreateAndUpdateTaskDto,
   ): Promise<void> {
     const { title, description, dueDate, priority } = createTaskDto;
@@ -72,7 +72,7 @@ export class ColumnsRepository extends Repository<Columns> {
     }
   }
 
-  private async getColumn(columnId: number) {
+  private async getColumn(columnId: string) {
     return await this.findOne({
       relations: ['tasks'],
       where: { id: columnId },

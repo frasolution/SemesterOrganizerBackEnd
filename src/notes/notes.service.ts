@@ -11,15 +11,15 @@ export class NotesService {
     private notesRepository: NotesRepository,
   ) {}
 
-  async findNote(noteId: number): Promise<Note> {
+  async findNote(noteId: string): Promise<Note> {
     return await this.notesRepository.findOne(noteId);
   }
 
-  async removeNote(noteId: number): Promise<void> {
+  async removeNote(noteId: string): Promise<void> {
     await this.notesRepository.delete(noteId);
   }
 
-  async updateNote(noteDto: NoteDto, noteId: number): Promise<void> {
+  async updateNote(noteDto: NoteDto, noteId: string): Promise<void> {
     return await this.notesRepository.editOne(noteDto, noteId);
   }
 }

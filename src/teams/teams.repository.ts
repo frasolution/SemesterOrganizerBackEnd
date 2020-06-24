@@ -65,7 +65,7 @@ export class TeamsRepository extends Repository<Team> {
     }
   }
 
-  async getCourses(teamId: number): Promise<Course[]> {
+  async getCourses(teamId: string): Promise<Course[]> {
     const team = await this.getTeamWithCourseRelation(teamId);
     if (team) {
       return team.courses;
@@ -75,7 +75,7 @@ export class TeamsRepository extends Repository<Team> {
   }
 
   async createCourses(
-    teamId: number,
+    teamId: string,
     createCoursesDto: CreateCoursesDto,
   ): Promise<void> {
     const newCourses: Course[] = [];
@@ -112,7 +112,7 @@ export class TeamsRepository extends Repository<Team> {
     }
   }
 
-  private async getTeamWithCourseRelation(teamId: number) {
+  private async getTeamWithCourseRelation(teamId: string) {
     return await this.findOne({
       relations: ['courses'],
       where: { id: teamId },

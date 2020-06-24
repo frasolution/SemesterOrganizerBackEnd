@@ -17,14 +17,14 @@ export class ColumnsService {
   ) {}
 
   async createTask(
-    columnId: number,
+    columnId: string,
     createTaskDto: CreateAndUpdateTaskDto,
   ): Promise<void> {
     return await this.columnsRepository.createTask(columnId, createTaskDto);
   }
 
   async updateColumn(
-    columnId: number,
+    columnId: string,
     updateColumnDto: CreateAndUpdateColumnDto,
   ): Promise<void> {
     const { columnName } = updateColumnDto;
@@ -36,15 +36,12 @@ export class ColumnsService {
   }
 
   async moveTask(
-    columnId: number,
-    taskId: number,
+    columnId: string,
+    taskId: string,
     moveTaskDto: MoveTaskDto,
   ): Promise<void> {
     const { selectedColumnId } = moveTaskDto;
-    if (columnId === selectedColumnId) {
-      console.log('equal lol');
-      return;
-    }
+    if (columnId === selectedColumnId) return;
     await this.tasksRepository.delete(taskId);
     await this.columnsRepository.moveTask(moveTaskDto);
   }

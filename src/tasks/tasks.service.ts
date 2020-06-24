@@ -16,7 +16,7 @@ export class TasksService {
   }
 
   async updateTask(
-    taskId: number,
+    taskId: string,
     updateTaskDto: CreateAndUpdateTaskDto,
   ): Promise<void> {
     const { title, description, dueDate, priority } = updateTaskDto;
@@ -29,7 +29,7 @@ export class TasksService {
   }
 
   async completeTask(
-    taskId: number,
+    taskId: string,
     body: { isCompleted: boolean },
   ): Promise<void> {
     await this.tasksRepository.update(taskId, {

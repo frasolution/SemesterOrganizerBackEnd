@@ -4,7 +4,7 @@ import { NoteDto } from './dto/note.dto';
 
 @EntityRepository(Note)
 export class NotesRepository extends Repository<Note> {
-  async editOne(noteDto: NoteDto, noteId: number): Promise<void> {
+  async editOne(noteDto: NoteDto, noteId: string): Promise<void> {
     const { title, description } = noteDto;
     const note = new Note();
     note.title = title;

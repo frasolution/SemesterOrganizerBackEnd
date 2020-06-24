@@ -9,8 +9,8 @@ import { Course } from '../courses/courses.entity';
 
 @Entity()
 export class Note extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   description: string;

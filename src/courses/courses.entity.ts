@@ -12,8 +12,8 @@ import { Columns } from 'src/columns/columns.entity';
 
 @Entity()
 export class Course extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   courseNumber: number;

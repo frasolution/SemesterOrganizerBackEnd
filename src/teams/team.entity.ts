@@ -12,8 +12,8 @@ import { Course } from '../courses/courses.entity';
 
 @Entity()
 export class Team extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;

@@ -12,7 +12,7 @@ export class UsersController {
    * returns user with id as Promise
    */
   @Get(':id')
-  findOne(@Param('id') id: number): Promise<User> {
+  findOne(@Param('id') id: string): Promise<User> {
     return this.userService.findOne(id);
   }
 
@@ -22,7 +22,7 @@ export class UsersController {
    * removes user from repository
    */
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<void> {
+  remove(@Param('id') id: string): Promise<void> {
     return this.userService.remove(id);
   }
 }
