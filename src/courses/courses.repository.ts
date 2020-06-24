@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { Course } from './courses.entity';
-import { NoteDto } from '../notes/dto/note.dto';
+import { CreateAndUpdateNoteDto } from '../notes/dto/create-update-note.dto';
 import { Note } from '../notes/notes.entity';
 import {
   InternalServerErrorException,
@@ -20,14 +20,18 @@ export class CoursesRepository extends Repository<Course> {
     }
   }
 
-  async createNote(courseId: string, noteDto: NoteDto): Promise<void> {
-    const note = new Note();
+  async createNote(
+    courseId: string,
+    createNoteDto: CreateAndUpdateNoteDto,
+  ): Promise<void> {
     const course = await this.getCourseWithRelation('notes', courseId);
     this.validateCourse(course);
-    const { title, description } = noteDto;
 
-    note.title = title;
-    note.description = description;
+    const { noteTitle, noteDescription } = createNoteDto;
+
+    const note = new Note();
+    note.title = noteTitle;
+    note.description = noteDescription;
 
     try {
       course.notes.push(note);

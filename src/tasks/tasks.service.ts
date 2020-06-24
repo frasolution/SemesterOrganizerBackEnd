@@ -11,7 +11,7 @@ export class TasksService {
     private tasksRepository: TasksRepository,
   ) {}
 
-  async deleteTask(taskId: number): Promise<void> {
+  async deleteTask(taskId: string): Promise<void> {
     await this.tasksRepository.delete(taskId);
   }
 

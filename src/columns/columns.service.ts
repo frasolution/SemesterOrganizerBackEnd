@@ -31,7 +31,7 @@ export class ColumnsService {
     await this.columnsRepository.update(columnId, { title: columnName });
   }
 
-  async deleteCoumn(columnId: number): Promise<void> {
+  async deleteCoumn(columnId: string): Promise<void> {
     await this.columnsRepository.delete(columnId);
   }
 

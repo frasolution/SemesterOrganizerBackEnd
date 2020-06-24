@@ -4,7 +4,7 @@ import { CoursesRepository } from './courses.repository';
 import { Course } from './courses.entity';
 import { EditCourseDto } from './dto/edit-course.dto';
 import { Note } from '../notes/notes.entity';
-import { NoteDto } from '../notes/dto/note.dto';
+import { CreateAndUpdateNoteDto } from '../notes/dto/create-update-note.dto';
 import { CreateAndUpdateColumnDto } from 'src/columns/dto/create-update-column.dto';
 import { Columns } from 'src/columns/columns.entity';
 
@@ -39,8 +39,11 @@ export class CoursesService {
     return await this.coursesRepository.getColumns(courseId);
   }
 
-  async createNote(courseId: string, noteDto: NoteDto): Promise<void> {
-    return await this.coursesRepository.createNote(courseId, noteDto);
+  async createNote(
+    courseId: string,
+    createNoteDto: CreateAndUpdateNoteDto,
+  ): Promise<void> {
+    return await this.coursesRepository.createNote(courseId, createNoteDto);
   }
 
   async createColumn(

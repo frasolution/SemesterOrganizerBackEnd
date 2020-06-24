@@ -23,7 +23,7 @@ import { EditCourseDto } from '../courses/dto/edit-course.dto';
 import { CreateCoursesDto } from '../courses/dto/create-courses.dto';
 import { Note } from '../notes/notes.entity';
 import { NotesService } from '../notes/notes.service';
-import { NoteDto } from '../notes/dto/note.dto';
+import { CreateAndUpdateNoteDto } from '../notes/dto/create-update-note.dto';
 import { CreateAndUpdateColumnDto } from '../columns/dto/create-update-column.dto';
 import { Columns } from '../columns/columns.entity';
 import { CreateAndUpdateTaskDto } from '../tasks/dto/create-task.dto';
@@ -115,9 +115,9 @@ export class TeamsController {
   @Post(':teamId/courses/:courseId/notes')
   createNote(
     @Param('courseId') courseId: string,
-    @Body(ValidationPipe) noteDto: NoteDto,
+    @Body(ValidationPipe) createNoteDto: CreateAndUpdateNoteDto,
   ): Promise<void> {
-    return this.coursesService.createNote(courseId, noteDto);
+    return this.coursesService.createNote(courseId, createNoteDto);
   }
 
   @Get(':teamId/courses/:courseId/notes/:noteId')
@@ -132,10 +132,10 @@ export class TeamsController {
 
   @Patch(':teamId/courses/:courseId/notes/:noteId')
   updateNote(
-    @Body(ValidationPipe) noteDto: NoteDto,
+    @Body(ValidationPipe) updateNoteDto: CreateAndUpdateNoteDto,
     @Param('noteId') noteId: string,
   ): Promise<void> {
-    return this.notesService.updateNote(noteDto, noteId);
+    return this.notesService.updateNote(updateNoteDto, noteId);
   }
 
   // -------------------------- COLUMN ROUTES -------------------------- //
@@ -161,7 +161,7 @@ export class TeamsController {
   }
 
   @Delete(':teamId/courses/:courseId/columns/:columnId')
-  deleteColumn(@Param('columnId') columnId: number): Promise<void> {
+  deleteColumn(@Param('columnId') columnId: string): Promise<void> {
     return this.columnsService.deleteCoumn(columnId);
   }
 
@@ -175,7 +175,7 @@ export class TeamsController {
   }
 
   @Delete(':teamId/courses/:courseId/columns/:columnId/tasks/:taskId')
-  deleteTask(@Param('taskId') taskId: number): Promise<void> {
+  deleteTask(@Param('taskId') taskId: string): Promise<void> {
     return this.tasksService.deleteTask(taskId);
   }
 
