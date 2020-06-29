@@ -11,14 +11,14 @@ import {
 } from 'class-validator';
 
 export class CreateAndUpdateTaskDto {
-  @IsNotEmpty()
   @IsString()
+  @IsNotEmpty()
   @MinLength(1)
   @MaxLength(30)
   title: string;
 
   @IsString()
-  @MinLength(1)
+  @IsOptional()
   @MaxLength(25000)
   description: string;
 
