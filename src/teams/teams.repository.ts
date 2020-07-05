@@ -19,11 +19,21 @@ export class TeamsRepository extends Repository<Team> {
     usersRepository: UsersRepository,
   ): Promise<Team[]> {
     const userEntity = await usersRepository.find({
-      relations: ['teams'],
+      relations: ['teams', 'teams.users'],
       where: { id: user.id },
     });
 
-    return userEntity[0].teams;
+    // remove sensitive information from user entities
+    const result = userEntity[0].teams;
+    result.forEach((team: Team) => {
+      team.users.forEach((user: User) => {
+        delete user.id;
+        delete user.password;
+        delete user.salt;
+      });
+    });
+
+    return result;
   }
 
   async createTeam(
@@ -32,6 +42,9 @@ export class TeamsRepository extends Repository<Team> {
     user: User,
   ): Promise<void> {
     const { teamName, usernames } = createTeamDto;
+    if (teamName.trim() === 'Private Team') {
+      throw new ConflictException('Cannot create a team with reserved name.');
+    }
     const team = this.create();
     const foundUsers = await usersRepository
       .createQueryBuilder('user')
