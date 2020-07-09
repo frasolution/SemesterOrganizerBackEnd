@@ -28,3 +28,6 @@ $ npm install
 ```console
 $ npm run start:dev
 ```
+
+## Contect with the dev
+https://discord.gg/mbWEnYD
